@@ -43,7 +43,7 @@ public class NotebookController {
         return notebook;
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void deleteNotebook(@PathVariable String id){
         this.notebookRepository.deleteById(UUID.fromString(id));
     }
