@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/notes")
+@CrossOrigin
 public class NoteController {
     NoteRepository noteRepository;
     NotebookRepository notebookRepository;
