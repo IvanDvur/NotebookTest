@@ -1,1 +1,49 @@
-<p>feedback works!</p>
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 10px">
+    <div class="offset-6"></div>
+    <div class="col-md-6">
+      <form name="form" #f="ngForm" (ngSubmit)="sendFeedback()" novalidate class="feedback-form">
+
+        <div class="form-group" style="margin-bottom: 10px">
+          <label for="name">First Name</label>
+          <input type="text"
+                 id="name"
+                 class="form-control"
+                 name="name"
+                 placeholder="Your name"
+                 [(ngModel)]="model.name"/>
+        </div>
+
+        <!--Email-->
+        <div class="form-group" style="margin-bottom: 10px">
+          <label for="email">Email</label>
+          <input type="text"
+                 id="email"
+                 class="form-control"
+                 name="email"
+                 placeholder="Your Email"
+                 [(ngModel)]="model.email"/>
+        </div>
+
+        <!--Feedback-->
+        <div class="form-group">
+          <label for="feedback">Feedback</label>
+          <textarea type="text"
+                    id="feedback"
+                    class="form-control"
+                    name="feedback"
+                    placeholder="Your feedback"
+                    rows="10"
+                    [(ngModel)]="model.feedback">
+          </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-info pull-right" style="margin-top: 10px">
+          <i class="fa fa-envelope-o"></i>
+          <span>Send Feedback</span>
+        </button>
+      </form>
+    </div>
+    <div class="offset-3"></div>
+  </div>
+</div>
