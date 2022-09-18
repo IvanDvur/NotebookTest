@@ -21,14 +21,14 @@ export class FeedbackComponent implements OnInit {
 
   sendFeedback(): void{
     let url = "http://localhost:8080/api/feedback";
-    this.http.post(url, this.model).subscribe(
-      res=>{
+    this.http.post(url, this.model).subscribe({
+      next: (res)=>{
         location.reload();
       },
-      error => {
-        alert("An error has occcured")
+      error: (err)=>{
+        alert("An error has occured")
       }
-    );
+    })
   }
 }
 
