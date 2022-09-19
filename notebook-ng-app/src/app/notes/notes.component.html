@@ -3,6 +3,7 @@
   <div class="row" style="margin-top: 12px">
     <div class="col-md-8">
       <input type="text"
+             [(ngModel)]="searchText"
              class="form-control"
              style="width: 100%"
              placeholder="Search note">
@@ -22,12 +23,13 @@
         <i class="fa fa-plus"></i>New note
       </button>
     </div>
+
   </div>
+
   <!--Note Content-->
   <div class="row" style="margin-top: 28px">
     <!--Notebooks menu-->
     <div class="col-md-3">
-      <br>
       <div class="list-group list-group-flush"
            style="border-top: 1px darkgray;border-left: 1px darkgray">
         <a class="list-group-item list-group-item-action"
@@ -61,36 +63,18 @@
         </div>
       </div>
       <div class="row">
-        <!--Note list-->
-        <div *ngFor="let note of notes" class="card bg-warning" style="border: 4px solid white; width: fit-content">
-          <div class="card-body" style="padding: 8px; margin-top: 8px">
-            <div>
-              <input type="text"
-                     [(ngModel)]="note.title"
-                     class="input-label-lg"
-                     maxlength="18" style="width: 50%"
-                     (change)="updateNote(note)"
-              />
-              <a (click)="deleteNote(note)" class="pull-right text-danger">
-                <i class="fa fa-trash-o"></i>
-              </a>
-            </div>
-            <!--text-->
-            <textarea class="input-label"
-                      style="width: 100%"
-                      rows="6"
-                      [(ngModel)]="note.text"
-                      (change)="updateNote(note)">
-            </textarea>
-            <strong class="text-info" style="font-size: small"></strong>
-          </div>
-        </div>
+        <app-note *ngFor="let n of notes | noteTextFilter:searchText"
+                  [note]="n"
+                  (noteUpdated)="updateNote($event)"
+                  (noteDeleted)="deleteNote($event)"
+                  class="col-md-4">
+        </app-note>
       </div>
     </div>
   </div>
 </div>
 
-<script></script>
+
 
 
 

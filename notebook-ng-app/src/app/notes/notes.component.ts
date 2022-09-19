@@ -12,6 +12,7 @@ export class NotesComponent implements OnInit {
   notebooks: Notebook[] = [];
   notes: Note[] = [];
   selectedNotebook: Notebook = null!;
+  searchText: string = null!;
 
   constructor(private apiService: ApiService) {
   }
@@ -66,7 +67,7 @@ export class NotesComponent implements OnInit {
       id: null!,
       text: 'Write something here',
       notebookId: notebookId,
-      lastModifiedOn: null!
+      lastModified: null!
     };
     this.apiService.postNote(newNote).subscribe({
       next: res => {
