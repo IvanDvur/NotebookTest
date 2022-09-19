@@ -1,0 +1,15 @@
+.list-group-item{
+  cursor: pointer;
+}
+.input-label{
+  background: rgba(0,0,0,0);
+  border: none;
+  cursor: pointer;
+}
+.input-label-lg{
+  background: rgba(0,0,0,0);
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  font-size: large;
+}

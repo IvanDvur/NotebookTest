@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {ApiService} from "../shared/api.service";
 
 @Component({
   selector: 'app-feedback',
@@ -8,24 +9,24 @@ import {HttpClient} from "@angular/common/http";
 })
 export class FeedbackComponent implements OnInit {
   model: FeedbackDto = {
-    name:'',
-    email:'',
-    feedback:''
+    name: '',
+    email: '',
+    feedback: ''
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit(): void {
   }
 
-  sendFeedback(): void{
-    let url = "http://localhost:8080/api/feedback";
-    this.http.post(url, this.model).subscribe({
-      next: (res)=>{
+  public sendFeedback(): void {
+
+    this.apiService.postFeedback(this.model).subscribe({
+      next: (res) => {
         location.reload();
       },
-      error: (err)=>{
+      error: (err) => {
         alert("An error has occured")
       }
     })

@@ -1,1 +1,95 @@
-<p>notes works!</p>
+<div class="container">
+  <!--Note Menu-->
+  <div class="row" style="margin-top: 12px">
+    <div class="col-md-8">
+      <input type="text"
+             class="form-control"
+             style="width: 100%"
+             placeholder="Search note">
+    </div>
+    <div class="col-md-4">
+      <button type="button"
+              class="btn btn-info pull-right"
+              style="margin-left: 12px;"
+              (click)="createNotebook()">
+        <i class="fa fa-plus"></i>New Notebook
+      </button>
+      <button type="button"
+              (click)="createNote('empty')"
+              class="btn btn-secondary pull-right"
+              style="width: 146px">
+        <i class="fa fa-plus"></i>New note
+      </button>
+    </div>
+  </div>
+  <!--Note Content-->
+  <div class="row" style="margin-top: 28px">
+    <!--Notebooks menu-->
+    <div class="col-md-3">
+      <br>
+      <div class="list-group list-group-flush"
+           style="border-top: 1px darkgray;border-left: 1px darkgray">
+        <a class="list-group-item list-group-item-action">
+          <i class="fa fa-book"></i>&nbsp;All
+        </a>
+        <a *ngFor="let notebook of notebooks"
+           class="list-group-item list-group-item-action"
+           (click)="selectNotebook(notebook)">
+          <i class="fa fa-book"></i>&nbsp;
+          <input [(ngModel)]="notebook.name"
+                 (change)="updateNotebook(notebook)"
+                 type="text"
+                 class="input-label"
+                 style="width: 80%">
+          <a class="pull-right text-danger" (click)="deleteNotebook(notebook)">
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12" style="text-align: center">
+          <!--NO NOTES MESSAGE-->
+          <p *ngIf="this.notes.length == 0" style="font-weight: bolder">Still got no notes? Go ahead and create one!</p>
+        </div>
+      </div>
+      <div class="row">
+        <!--Note list-->
+        <div *ngFor="let note of notes" class="card bg-warning" style="border: 4px solid white; width: fit-content">
+          <div class="card-body" style="padding: 8px; margin-top: 8px">
+            <div>
+              <input type="text"
+                     [(ngModel)]="note.title"
+                     class="input-label-lg"
+                     maxlength="18" style="width: 30%"
+              />
+              <a (click)="deleteNote(note)" class="pull-right text-danger">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+            <!--text-->
+            <textarea class="input-label"
+                      style="width: 100%"
+                      rows="6"
+                      [(ngModel)]="note.text">
+            </textarea>
+            <strong class="text-info" style="font-size: small"></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<a class="list-group-item list-group-item-action">-->
+<!--  <i class="fa fa-book"></i>&nbsp;-->
+<!--  <input type="text" class="input-label" style="width: 80%">-->
+<!--  <a class="pull-right text-danger">-->
+<!--    <i class="fa fa-trash-o"></i>-->
+<!--  </a>-->
+<!--</a>-->
+
+
+
