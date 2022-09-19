@@ -13,3 +13,6 @@
   font-weight: bold;
   font-size: large;
 }
+.list-group-item:active{
+  background-color: rgba(81,81,237,93);
+}

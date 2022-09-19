@@ -11,7 +11,7 @@ import {Note} from "./model/note";
 export class NotesComponent implements OnInit {
   notebooks: Notebook[] = [];
   notes: Note[] = [];
-  selectedNotebook: Notebook;
+  selectedNotebook: Notebook = null!;
 
   constructor(private apiService: ApiService) {
   }
@@ -19,7 +19,6 @@ export class NotesComponent implements OnInit {
   ngOnInit(): void {
     this.getAllNotebooks();
     this.getAllNotes();
-
   }
 
   public getAllNotebooks() {
@@ -61,16 +60,16 @@ export class NotesComponent implements OnInit {
     })
   }
 
-  createNote(notebookId: string){
+  createNote(notebookId: string) {
     let newNote: Note = {
       title: 'New Note',
       id: null!,
       text: 'Write something here',
       notebookId: notebookId,
       lastModifiedOn: null!
-    }
+    };
     this.apiService.postNote(newNote).subscribe({
-      next: res=>{
+      next: res => {
         newNote.id = res.id;
         this.notes.push(newNote);
       },
@@ -105,13 +104,38 @@ export class NotesComponent implements OnInit {
   }
 
   deleteNote(note: Note) {
-    if (confirm("Are you sure?")){
-
+    if (confirm("Are you sure?")) {
+      this.apiService.deleteNote(note.id).subscribe({
+        next: res => {
+          let indexOfNote = this.notes.indexOf(note);
+          this.notes.splice(indexOfNote, 1)
+        },
+      })
     }
   }
 
   selectNotebook(notebook: Notebook) {
     this.selectedNotebook = notebook;
-    //TODO: grab all the notes for this notebook
+    this.apiService.getNotesByNotebook(notebook.id).subscribe({
+      next: res => {
+        this.notes = res;
+      },
+      error: err => {
+        alert("Error has occured...")
+      }
+    })
+
+  }
+
+  updateNote(updatedNote: Note) {
+    this.apiService.postNote(updatedNote).subscribe({
+        next: res => {
+
+        },
+        error: err => {
+          alert("Error updating note")
+        }
+      }
+    )
   }
 }
